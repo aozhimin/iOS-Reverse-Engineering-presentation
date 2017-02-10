@@ -1,0 +1,401 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=1024" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <title>iOS 逆向工程和应用安全</title>
+        
+        <meta name="description" content="Introduction of cocos2d-x" />
+        <meta name="author" content="Hans Zhang (ezburg@gmail.com)" />
+        
+        <link href="css/impress.css" rel="stylesheet" />
+        <link href="css/reverseEngineering.css" rel="stylesheet" />
+        
+        <link rel="shortcut icon" href="favicon.png" />
+        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    </head>
+    <body class="impress-not-supported">
+        <div class="fallback-message">
+            <p>尊驾的浏览器太老土啦！<b>无法满足impress.js的要求</b>，现在你只能看到一些最朴素的演示画面。</p>
+            <p>为了欣赏漂亮的演示画面，请使用先进、优雅、快速、美丽、免费的现代浏览器，比如 <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> 。</p>
+        </div>
+        <div id="impress" data-perspective="1000">
+
+            <div id="title" class="step" data-x="0" data-y="0" data-scale="4">
+				<div style="text-align:center;">
+                <h1 style="">iOS 逆向工程</h1> <h1>和</h1> <h1>应用安全 </h1>
+                <h2 style="margin-top: 50px;">@aozhimin</h2>
+				</div>
+            </div>
+
+            <div class="step" data-x="-2000" data-y="-1500">
+	            <h1>大纲</h1>
+				<ul>
+	                <li>iOS 逆向工程</li>
+			            <ul>
+			                <li>简介</li>
+			                <li>工具集</li>
+			                <li>iOS 逆向开发的套路</li>
+			            </ul>
+	                <li>iOS 应用安全</li>
+		                <ul>
+				            <li>网络安全</li>
+				            <li>本地文件和数据安全</li>
+				            <li>代码安全</li>		               
+			             </ul>
+				</ul>
+            </div>
+
+            <div class="step" data-x="-1000" data-y="-1500" data-rotate="90">
+	            <h1>简介</h1>
+	            <ul>
+		            <li>什么是 iOS 逆向工程</li>
+		            <li>iOS 逆向工程的作用</li>
+		            <li>iOS 逆向分析方法</li>
+	            </ul>
+	            
+            </div>
+
+            <div class="step" data-x="0" data-y="-1500" data-rotate="90">
+		        <h1>什么是 iOS 逆向工程</h1>
+			        <p>软件的逆向工程指的是通过分析一个程序或系统的功能、结构或行为，将它的技术实现或设计细节推导出来的过程。当我们因为工作需要，或是对一个软件的功能很感兴趣，却又拿不到它的源代码时，往往可以通过逆向工程的方式对它进行分析。</p> <br/>
+                    <p style="background-color: rgba(238, 238, 238, 1);font-size: 25px;padding: 15px 40px 15px 40px;border-radius: 10px"> 
+	                    照着配方包饺子,是正向开发  吃着饺子推配方,是逆向工程
+        			</p>
+        			
+                    <p style="background-color: rgba(238, 238, 238, 1);font-size: 25px;padding: 15px 40px 15px 40px;border-radius: 10px;margin-top: 10px;"> 
+	                    配方:API 调用顺序 <br/>
+	                    效果:实现原理
+         			</p>
+
+            </div>
+
+            <div id="family" class="step" data-x="1000" data-y="-1500" data-rotate="90">
+	            <h1>iOS 逆向工程的作用</h1>
+	            <br/>
+	            <ul>
+		            <li>与安全相关的 iOS 逆向工程</li>
+			            <ul>
+				            <li>评定安全等级</li>
+				            <li>逆向恶意软件</li>
+				            <li>检查软件后门</li>
+				            <li>去除使用限制</li>
+			            </ul>
+		            <li>与开发相关的 iOS 逆向工程</li>
+			            <ul>
+				            <li>逆向系统调用</li>
+				            <li>借鉴别的软件</li>
+			            </ul>
+		            <li>提升个人能力和素养</li>
+	            </ul>
+<!--
+                <p><u>Cocos2d-python</u> => <u>Cocos2d-iphone</u> => <u>Cocos2d-x</u></p>
+                <img src="images/Cocos2dMaintainers.jpg" />
+-->
+            </div>
+
+            <div class="step" data-x="2000" data-y="-1500" data-rotate="90" data-scale="2" data-rotate-x="90">
+	            <div align="center">
+		                            <img src="images/safe-castle.png" align="top" alt=""/>
+	            </div>
+                <p align="center">固若金汤的城堡</p>
+</p>
+
+	           
+            </div>
+
+            <div class="step" data-x="2500" data-y="-500" data-rotate="90">
+    	        <div align="center">
+                    <img src="images/crack-castle.png" align="top" alt=""/>
+	            </div>
+                <p align="center">上帝模式</p>
+
+            </div>
+            
+
+            <div class="step" data-x="2500" data-y="500" data-rotate="90">
+                <h1>iOS 逆向分析方法</h1>
+                <ul>
+                    <li>网络分析</li>
+                    <p>通过分析和篡改接口数据，可以有效的通过接口数据来控制客户端行为，常用的抓包工具有 tcpdump, WireShark, Charles 等，Windows平台有 Fiddler</p>
+                    <li>静态分析</li>
+                    <p>静态分析法是在不运行行 iOS 应用的情形下，对应用进行静态分析的一种方法。比如获取应用的文件系统结构，本地文件的分析、使用反汇编工具（Disassembler，比如 Hopper Disassembler）查看内部代码，分析代码结构也是静态分析</p>
+                    <li>动态分析</li>
+                    <p>动态分析法是在 iOS 应用的运行过程中进行动态分析的一种方法，通过调试来分析代码，获得内存的状态等等。通过动态分析法，可以在观察应用的文件、网络等。动态分析中还常使用调试器（Debugger，比如LLDB）分析应用的内部结构与原理。甚至可以使用工具（比如Cycript，后面会详细介绍该工具）动态修改内存，给内存打补丁。</p>
+                </ul>
+            </div>
+            
+            <div class="step" data-x="2500" data-y="1500" data-rotate="90">
+                <h1>工具集</h1>
+                <ul>
+                    <li>Mac 工具集</li>
+                    <li>iOS 工具集</li>
+                </ul>
+            </div>
+            
+			<div class="step" data-x="2500" data-y="2500" data-rotate="90">
+                <h1>Mac 工具集</h1>
+                <ul>
+                    <li>class-dump</li>
+                    <li>Thoes 和 iOSOpenDev</li>
+                    <li>Reveal</li>
+                    <li>IDA 和 Hopper Disassembler</li>
+                    <li>MachOView</li>
+                </ul>
+            </div>
+            
+			<div class="step" data-x="1400" data-y="1600" data-rotate-y="-30" data-rotate-z="90">
+                <h1>class-dump</h1>
+                <p>class-dump 是用来 dump 目标对象的 class 信息的工具。它利用 Objective-C 语言的 runtime 特性，将存储在 Mach-O 文件中的 @interface 和 @protocol 信息提取出来，并生成相应的 .h 文件</p>
+                <img src="images/class-dump.jpeg" width="90%" style="margin-top: 30px;" alt=""/>
+
+            </div>
+
+            <div class="step" data-x="400" data-y="1600" data-rotate="180">
+                <h1>Theos</h1>
+                <p>Theos 是一个基于 Unix 平台(OS X，iOS…)和大多数的 Linux 平台下进行越狱开发的集成开发环境，由 Dustin Howett 大神开发并开源到 GitHub 上，它的特点是搭建简单、Logos语法简单、编译发布简单</p>
+                <img src="images/theos-1.jpeg" width="90%" style="margin-top: 30px;" alt=""/>
+            </div>
+
+            <div class="step" data-x="-600" data-y="1600" data-rotate="180">
+                <h1>Theos</h1>
+                <img src="images/theos-2.jpeg" width="90%" style="margin-top: 30px;" alt=""/>
+                <p>编译打包，这个过程可能会遇到问题，比如 make package 过程，可以通过 make package message=yes 输出详细错误信息</p>
+
+            </div>
+
+            <div class="step" data-x="-1600" data-y="1600" data-rotate="180">
+                <h1>iOSOpenDev</h1>
+                <p>iOSOpenDev 是基于 Theos 开发的，被整合到 Xcode 中，编译更方便，不用自己写 Makefile，另外同样提供了很多模版</p>
+                <img src="images/iosOpenDev.jpeg" width="90%" style="margin-top: 30px;" alt=""/>
+                <p style="text-align: center">iOSOpenDev 提供的模板</p>
+            </div>
+            
+            <div class="step" data-x="-2600" data-y="1600" data-z="1000" data-rotate="270" data-rotate-y="90" data-scale-x="0.5">
+                <h1>iOSOpenDev</h1>
+                <img src="images/iOSOpenDev2.jpeg" width="90%" style="margin-top: 30px;" alt=""/>
+                <p style="text-align: center">安装过程中可能遇到的问题</p>
+            </div>
+
+            
+ <div class="step" data-x="-2600" data-y="600" data-rotate="270" data-z="1000">
+                <h1>IDA</h1>
+                <p>IDA 是逆向工程中最负盛名的神奇之一，它可以把 class-dump 的点连成线，它支持 Windows、Linux 和 Mac OS X 的多平台反汇编器/调试器，功能非常强大</p>
+                <div align="center">
+	                <img src="images/IDA-1.jpeg" width="60%" style="margin-top: 30px;" alt=""/>
+	                <p>IDA 启动界面</p>
+                </div>
+
+            </div>
+          
+            
+             <div class="step" data-x="-2600" data-y="-400" data-rotate="270" data-z="1000">
+                <h1>IDA</h1>
+                <div align="center">
+                    <img src="images/IDA-2.jpeg" width="90%" style="margin-top: 30px;" alt=""/>
+		            <p style="text-align: center">IDA 主界面</p>
+                </div>
+
+
+            </div>
+            
+            <div class="step" data-x="-2600" data-y="-1400" data-rotate="270" data-z="1000">
+                <h1>Hopper Disassembler</h1>
+	            <p>Hopper，它有Mac OS X和 Linux 版本，能够反汇编32/64位 Mac，Linux，Windows 和 iOS 可执行文件。</p>
+                <img src="images/Hopper.jpeg" width="90%" style="margin-top: 30px;" alt=""/>
+
+
+            </div>
+            
+            
+            <div class="step" data-x="-2500" data-y="-2500" data-z="1000" data-rotate="-30">
+                <h1>Hopper Disassembler</h1>
+                <div align="center">
+	                <img src="images/Hopper-2.jpeg" width="80%" style="margin-top: 30px;" alt=""/>
+	                <p>Hopper 生成的伪代码</p>
+                </div>
+            </div>
+            
+            
+            <div id="its-in-3d" class="step" data-x="-1400" data-y="-2500" data-z="1000" data-rotate="0">
+                <h1>MachOView</h1>
+	            <p>MachOView 是可视化的 Mach-O 文件浏览器，它提供了浏览和编辑 Intel 和 ARM 二进制的功能
+                <div align="center">
+	                <img src="images/MachOView-1.jpeg" width="100%" style="margin-top: 30px;" alt=""/>
+	                <p>MachOView 主界面</p>
+                </div>
+                
+            </div>
+            
+            <div class="step" data-x="-400" data-y="-2500" data-z="1000" data-rotate="0">
+                <h1>MachOView</h1>
+                <div align="center">
+	                <img src="images/MachOView-2.jpeg" width="100%" style="margin-top: 30px;" alt=""/>
+	                <p>MachOView 查看加密信息</p>
+                </div>
+            </div>
+            
+            
+            
+            <div class="step" data-x="600" data-y="-2500" data-z="1000" data-rotate="0">
+                <h1>iOS 工具集</h1>
+                <ul style="margin-bottom: 300px;">
+                    <li>iFile</li>
+                    <li>MobileTerminal</li>
+                    <li>AppCrackr dumpdecrypted 和 Clutch</li>
+                    <li>Cycript</li>
+                    <li>GDB 和 LLDB</li>
+                    <li>MachOView</li>
+                </ul>	            
+            </div>
+            
+            <div class="step" data-x="2000" data-y="-2500" data-z="1000" data-rotate="0">
+                <h1>iFile</h1>
+                <p>iFile 是运行于 iOS 上的文件管理软件，它能实现文件的各类操作，甚至可以安装 deb 插件， 安装源是 BigBoss。</p>
+                <div align="center">
+	                <img src="images/ifile.PNG" width="35%" style="margin-top: 30px;" alt=""/>
+                </div>
+            </div>
+            
+            <div class="step" data-x="3000" data-y="-2000" data-z="1000" data-rotate="60">
+                <h1>MobileTerminal</h1>
+                <p>MobileTerminal 是开源的 iOS 版 Terminal，比较实用的场景是在没有计算机的情况下结合 Cycript 进行代码测试。
+                <div align="center">
+	                <img src="images/terminal.PNG" width="35%" style="margin-top: 30px;" alt=""/>
+                </div>
+            </div>
+            
+            <div class="step" data-x="3500" data-y="-1000" data-z="1000" data-rotate="90">
+                <h1>AppCrackr dumpdecrypted 和 Clutch</h1>
+                <p style="margin-top: 80px; margin-bottom: 200px;">从 AppStore 获取 IPA 文件无法直接通过 class-dump 获取 .h 文件，也无法通过前面介绍的静态分析工具 IDA 进行反汇编。这种情况我们就需要对文件砸壳，AppCrackr 就是一款对 App 破解去壳的工具，AppCrackr 的成功率要远远高于 dumpdecrypted 和 Clutch。但正是由于它功能太过强大，引起公愤，导致其核心功能被迫关闭。
+				
+				
+            </div>
+            
+             <div class="step" data-x="3500" data-y="0" data-z="1000" data-rotate="90">
+                 
+            <h1>解密二进制文件</h1>         
+            <ul style="margin-top: 100px; margin-bottom: 200px;">
+                <li>分析二进制文件以确定其加密部分的位置</li>
+                <li>用 LLDB 运行应用程序</li>
+                <li>将未加密部分转储到磁盘</li>
+                <li>复制一份原始的二进制文件</li>
+                <li>把上一步复制的二进制文件中的 cryptid 标识删除</li>
+                <li>把未加密的段复制到上一步的二进制文件中</li>
+            </ul>	   
+		    </div>
+		    
+		                
+             <div class="step" data-x="3500" data-y="1000" data-z="1000" data-rotate="90">
+                 
+	            <h1>解密二进制文件</h1>         
+                <div align="center">
+	                <img src="images/dumpdecrypt.jpeg" width="100%" style="margin-top: 30px;" alt=""/>
+	                <p>dumpdecrypted 脱壳 App 的过程</p>
+                </div>
+		    </div>
+		    
+             <div class="step" data-x="3500" data-y="2000" data-z="1000" data-rotate="90">
+                 
+	            <h1>Cycript</h1>  
+	            <p>Cycript 是一门脚本语言，可以看做Objective-JavaScript，它可以很方便的帮忙测试函数和验证一下猜想。</p>       
+                <div align="center">
+	                <img src="images/cycript.jpeg" width="100%" style="margin-top: 30px;" alt=""/>
+                </div>
+		    </div>				
+				
+             <div class="step" data-x="3500" data-y="3000" data-z="1000" data-rotate="180" data-rotate-x="90" data-rotate-y="-60" data-rotate-z="90">
+                 
+	            <h1>GDB 和 LLDB</h1>  
+	            <p>LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。LLDB 绑定在 Xcode 内部，存在于主窗口底部的控制台中。</p>       
+	            <ul style="margin-top: 50px; margin-bottom: 200px;">
+		            <li>help</li>
+		            <li>print</li>
+		            <li>expression</li>
+		            <li>变量</li>
+		            <li>register write</li>
+		            <li>断点</li>
+		            <li>script</li>
+	            </ul>	                 
+		    </div>
+		    
+             <div class="step" data-x="2500" data-y="3000" data-z="1000" data-rotate="180">
+	             <h1>iOS 逆向开发的套路</h1>
+	            <ul style="margin-top: 50px; margin-bottom: 200px;">
+		            <li>观察、猜测，寻找分析切入点</li>
+		            <li>用 dumpdecrypted 砸壳</li>
+		            <li>用 class-dump 导出 Objective-C 头文件</li>
+		            <li>用 Cycript 定位目标视图</li>
+		            <li>获取目标视图的 UIViewController 或 delegate</li>
+		            <li>在 controller 的头文件中寻找蛛丝马迹</li>
+		            <li>用 Hopper 和 LLDB 的组合还原调用逻辑</li>
+		            <li>用 Theos 或 iOSOpenDev 编写插件</li>
+	            </ul>	                 
+		    </div>		    
+		    
+             <div class="step" data-x="1500" data-y="3000" data-z="1000" data-rotate="180">
+	             <h1>iOS 应用安全</h1>
+	            <ul style="margin-top: 50px; margin-bottom: 200px;">
+		            <li>网络安全</li>
+		            <li>本地文件和数据安全</li>
+		            <li>代码安全</li>
+	            </ul>	                 
+		    </div>
+		    
+             <div class="step" data-x="500" data-y="3000" data-z="1000" data-rotate="180">
+	             <h1>网络安全</h1>
+	             <p style="margin-top: 30px;">截获网络请求，破解通信协议并模拟客户端登录，伪造用户行为，对 iOS 用户数据造成危害</p>
+	             <h2 style="font-size: 30px; margin-top: 30px;">怎么防？</h2>
+	             <ul style="margin-bottom: 100px;">
+		             <li>加密</li>
+		             <li>使用二进制协议传输数据</li>
+	             </ul>
+		    </div>
+		    
+             <div class="step" data-x="-500" data-y="3000" data-z="1000" data-rotate="180">
+	             <h1>本地文件和数据安全</h1>
+	             <p style="margin-top: 30px;">移动端本地文件中常常会存储一些敏感信息，包括	NSUserDefaults，Plist，缓存和日志文件，而如果没有做好防御措施，就会造成数据泄露</p>
+	             <h2 style="font-size: 30px; margin-top: 30px;">怎么防？</h2>
+	             <ul style="margin-bottom: 100px;">
+		             <li>尽量不存储敏感信息</li>
+		             <li>数据加密</li>
+	             </ul>
+		    </div>		
+		    
+             <div class="step" data-x="-1500" data-y="3000" data-z="1000" data-rotate="180">
+	             <h1>代码安全</h1>
+	             <ul style="margin-bottom: 100px;">
+		             <li>字符串加密</li>
+		             <li>类名方法名混淆</li>
+		             <li>程序代码混淆</li>
+		             <li>越狱检测</li>
+		             <li>核心代码加密，用 C 或 C++ 实现</li>
+	             </ul>
+		    </div>			    
+		    
+		    
+		    <div class="step" data-x="-2500" data-y="3000" data-z="1000" data-rotate="180">
+									<span class="its" style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q</span> <span class="in">&&</span> <b>A
+
+            </div>
+
+            <div id="overview" class="step" data-x="0" data-y="0" data-scale="10">
+            </div>
+
+        </div>
+<!--
+        <div class="hint">
+            <p>使用空格或者方向键来移动</p>
+        </div>
+-->
+        <script>
+/*
+        if ("ontouchstart" in document.documentElement) {
+        document.querySelector(".hint").innerHTML = "<p>向左或向右拖动屏幕来移动</p>";
+        }
+*/
+        </script>
+        <script src="js/impress.js"></script>
+        <script>impress().init();</script>
+    </body>
+</html>
